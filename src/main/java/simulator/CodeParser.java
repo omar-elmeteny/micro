@@ -56,7 +56,7 @@ public class CodeParser {
             case "SUB.D":
                 return OpCodes.SUB;
 
-            case "MULT.D":
+            case "MUL.D":
                 return OpCodes.MUL;
 
             case "DIV.D":
@@ -166,7 +166,7 @@ public class CodeParser {
     public static boolean checkDestinationRegisterNumber(String number) throws SimulatorSyntaxException {
         try {
             int n = Integer.parseInt(number);
-            if (n >= 1 && n <= 31) {
+            if (n >= 0 && n <= 31) {
                 return true;
             }
             return false;

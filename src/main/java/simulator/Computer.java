@@ -16,8 +16,8 @@ public class Computer {
 
     public Computer(SimulatorSettings settings) {
         super();
-        cpu = new CPU(settings);
         memory = new Memory(settings);
+        cpu = new CPU(settings, this);
     }
 
 }

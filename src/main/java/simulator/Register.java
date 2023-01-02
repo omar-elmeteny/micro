@@ -11,19 +11,19 @@ public class Register {
         this.qi = qi;
     }
 
-    private double value;
+    private Double value;
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
     public Register() {
         super();
         this.qi = "0";
-        this.value = 0;
+        this.value = null;
     }
 }

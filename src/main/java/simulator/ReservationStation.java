@@ -28,23 +28,23 @@ public class ReservationStation {
         return op;
     }
 
-    private double vj;
+    private Double vj;
 
-    public double getVj() {
+    public Double getVj() {
         return vj;
     }
 
-    public void setVj(double vj) {
+    public void setVj(Double vj) {
         this.vj = vj;
     }
 
-    private double vk;
+    private Double vk;
 
-    public double getVk() {
+    public Double getVk() {
         return vk;
     }
 
-    public void setVk(double vk) {
+    public void setVk(Double vk) {
         this.vk = vk;
     }
 
@@ -68,14 +68,45 @@ public class ReservationStation {
         this.qk = qk;
     }
 
-    private int address;
+    private Integer address;
 
-    public void setAddress(int address) {
+    public void setAddress(Integer address) {
         this.address = address;
     }
 
-    public int getAddress() {
+    public Integer getAddress() {
         return address;
+    }
+
+    private Integer issueCycle;
+    
+    public Integer getIssueCycle() {
+        return issueCycle;
+    }
+
+    public void setIssueCycle(Integer issueCycle) {
+        this.issueCycle = issueCycle;
+    }
+
+    private Integer numberOfCyclesLeft;
+
+    public Integer getNumberOfCyclesLeft() {
+        return numberOfCyclesLeft;
+    }
+
+    public void setNumberOfCyclesLeft(Integer numberOfCyclesLeft) {
+        this.numberOfCyclesLeft = numberOfCyclesLeft;
+    }
+
+    private Double value;
+
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public Double getValue() {
+        return value;
     }
 
     public ReservationStation(String tag) {
@@ -83,10 +114,13 @@ public class ReservationStation {
         this.tag = tag;
         this.busy = false;
         this.op = -1;
-        this.vj = 0;
-        this.vk = 0;
+        this.vj = null;
+        this.vk = null;
         this.qj = null;
         this.qk = null;
-        this.address = 0;
+        this.address = null;
+        this.issueCycle = null;
+        this.numberOfCyclesLeft = null;
+        this.value = null;
     }
 }

@@ -10,6 +10,15 @@
             "request": "launch",
             "mainClass": "App",
             "projectName": "tomasulo"
+        },
+        {
+            "type": "java",
+            "name": "program1",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "tomasulo",
+            "args": ["programs/program1.txt"],
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

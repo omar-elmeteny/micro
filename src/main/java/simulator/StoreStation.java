@@ -2,12 +2,12 @@ package simulator;
 
 public class StoreStation extends LoadStation{
     
-    private double v;
-    public double getV() {
+    private Double v;
+    public Double getV() {
         return v;
     }
 
-    public void setV(double v) {
+    public void setV(Double v) {
         this.v = v;
     }
 
@@ -23,7 +23,7 @@ public class StoreStation extends LoadStation{
 
     public StoreStation(String tag) {
         super(tag);
-        this.v = 0;
+        this.v = null;
         this.q = null;
     }
 }
