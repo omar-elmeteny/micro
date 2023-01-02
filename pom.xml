@@ -3,6 +3,7 @@
   <groupId>guc.tomasulo</groupId>
   <artifactId>tomasulo</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <name>micro</name>
   <properties>
     <maven.compiler.source>18</maven.compiler.source>
     <maven.compiler.target>18</maven.compiler.target>

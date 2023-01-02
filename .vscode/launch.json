@@ -6,57 +6,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "one_plus_two",
+            "name": "Launch App",
             "request": "launch",
-            "mainClass": "guc.vonneumann.App",
-            "projectName": "vonneumann",
-            "args": ["programs/one_plus_two.txt"],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "java",
-            "name": "table8",
-            "request": "launch",
-            "mainClass": "guc.vonneumann.App",
-            "projectName": "vonneumann",
-            "args": ["programs/table8.txt"],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "java",
-            "name": "movi",
-            "request": "launch",
-            "mainClass": "guc.vonneumann.App",
-            "projectName": "vonneumann",
-            "args": ["programs/movi.txt"],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "java",
-            "name": "test",
-            "request": "launch",
-            "mainClass": "guc.vonneumann.App",
-            "projectName": "vonneumann",
-            "args": ["programs/test.txt"],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "java",
-            "name": "sum1-10",
-            "request": "launch",
-            "mainClass": "guc.vonneumann.App",
-            "projectName": "vonneumann",
-            "args": ["programs/sum1-10.txt"],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "java",
-            "name": "fill mem",
-            "request": "launch",
-            "mainClass": "guc.vonneumann.App",
-            "projectName": "vonneumann",
-            "args": ["programs/fill-mem.txt"],
-            "cwd": "${workspaceFolder}"
+            "mainClass": "App",
+            "projectName": "tomasulo"
         }
     ]
 }

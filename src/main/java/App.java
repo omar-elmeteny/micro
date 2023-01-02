@@ -1,3 +1,4 @@
+import java.io.FilterInputStream;
 import java.io.IOException;
 import java.util.Queue;
 import java.util.Scanner;
@@ -10,18 +11,25 @@ import simulator.SimulatorSettings;
 
 public class App {
 
-    private static SimulatorSettings simulatorSettings;
-
-    public static void setSimulatorSettings(SimulatorSettings simulatorSettings) {
-        App.simulatorSettings = simulatorSettings;
-    }
-
-    public static SimulatorSettings getSimulatorSettings() {
-        return simulatorSettings;
-    }
-
     public static void main(String[] args) throws SimulatorSyntaxException, IOException {
-        Scanner sc = new Scanner(System.in);
+        //SimulatorSettings settings = readSimulatorSettings();
+        SimulatorSettings settings = getDefaultSettings();
+        Computer computer = new Computer(settings);
+        Queue<Instruction> instructions = CodeParser.parseCode(args[0]);
+        computer.getCpu().setInstructionQueue(instructions);
+    }
+
+    private static SimulatorSettings getDefaultSettings() {
+        return new SimulatorSettings(1, 2, 3, 5, 1, 1, 2, 3, 2, 4, 4);
+    }
+
+    private static SimulatorSettings readSimulatorSettings() {
+        Scanner sc = new Scanner(new FilterInputStream(System.in) {
+            @Override
+            public void close() throws IOException {
+
+            }
+        });
         try {
             System.out.println("Please enter the latency of addition: ");
             int addCycles = sc.nextInt();
@@ -45,14 +53,12 @@ public class App {
             int loadStationSize = sc.nextInt();
             System.out.println("Please enter the size of store station: ");
             int storeStationSize = sc.nextInt();
-            simulatorSettings = new SimulatorSettings(addCycles, subCycles, mulCycles, divCycles, loadCycles,
+            SimulatorSettings settings = new SimulatorSettings(addCycles, subCycles, mulCycles, divCycles, loadCycles,
                     storeCycles, memSizeInKB, addSubStationSize, mulDivStationSize, loadStationSize, storeStationSize);
+            return settings;
 
         } finally {
             sc.close();
         }
-        Computer computer = new Computer(simulatorSettings);
-        Queue<Instruction> instructions = CodeParser.parseCode(args[0]);
-        computer.getCpu().setInstructionQueue(instructions);
     }
 }
