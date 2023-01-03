@@ -172,9 +172,12 @@ public class CPU {
     }
 
     public void runCycle() throws SimulatorRuntimeException {
-        writeBack();
+        Result result = writeBack1();
         execute();
         issue();
+        if (result != null) {
+            writeBack2(result);
+        }
     }
 
     public boolean issue() {
@@ -339,10 +342,10 @@ public class CPU {
         for (int i = 0; i < storeStations.length; i++) {
             String q = storeStations[i].getQ();
             if (isReadyForExecution(q) && storeStations[i].isBusy()) {
-                if (storeStations[i].getNumberOfCyclesLeft() == 0) {
+                if (storeStations[i].getNumberOfCyclesLeft() == 1) {
                     int number = i + 1;
                     storeStations[i] = new StoreStation("S" + number);
-                } else if (storeStations[i].getNumberOfCyclesLeft() == 1) {
+                } else if (storeStations[i].getNumberOfCyclesLeft() == 2) {
                     computer.getMemory().storeMem(storeStations[i].getV(), storeStations[i].getAddress());
                     storeStations[i].setNumberOfCyclesLeft(storeStations[i].getNumberOfCyclesLeft() - 1);
                 } else {
@@ -355,11 +358,11 @@ public class CPU {
     private void executeLoad() throws SimulatorRuntimeException {
         for (int i = 0; i < loadStations.length; i++) {
             if (loadStations[i].isBusy()) {
-                if (loadStations[i].getNumberOfCyclesLeft() <= 0) {
+                if (loadStations[i].getNumberOfCyclesLeft() <= 1) {
                     Double value = loadStations[i].getValue();
                     Result result = new Result(value, loadStations[i].getTag(), loadStations[i].getIssueCycle());
                     executedInstructions.add(result);
-                } else if (loadStations[i].getNumberOfCyclesLeft() == 1) {
+                } else if (loadStations[i].getNumberOfCyclesLeft() == 2) {
                     Double value = computer.getMemory().loadMem(loadStations[i].getAddress());
                     loadStations[i].setValue(value);
                 }
@@ -373,11 +376,11 @@ public class CPU {
             String qj = mulDivStations[i].getQj();
             String qk = mulDivStations[i].getQk();
             if (isReadyForExecution(qj, qk) && mulDivStations[i].isBusy()) {
-                if (mulDivStations[i].getNumberOfCyclesLeft() <= 0) {
+                if (mulDivStations[i].getNumberOfCyclesLeft() <= 1) {
                     Double value = mulDivStations[i].getValue();
                     Result result = new Result(value, mulDivStations[i].getTag(), mulDivStations[i].getIssueCycle());
                     executedInstructions.add(result);
-                } else if (mulDivStations[i].getNumberOfCyclesLeft() == 1) {
+                } else if (mulDivStations[i].getNumberOfCyclesLeft() == 2) {
                     Double value;
                     if (mulDivStations[i].getOp() == OpCodes.MUL) {
                         value = mulDivStations[i].getVj() * mulDivStations[i].getVk();
@@ -400,11 +403,11 @@ public class CPU {
             String qj = addSubStations[i].getQj();
             String qk = addSubStations[i].getQk();
             if (isReadyForExecution(qj, qk) && addSubStations[i].isBusy()) {
-                if (addSubStations[i].getNumberOfCyclesLeft() <= 0) {
+                if (addSubStations[i].getNumberOfCyclesLeft() <= 1) {
                     Double value = addSubStations[i].getValue();
                     Result result = new Result(value, addSubStations[i].getTag(), addSubStations[i].getIssueCycle());
                     executedInstructions.add(result);
-                } else if (addSubStations[i].getNumberOfCyclesLeft() == 1) {
+                } else if (addSubStations[i].getNumberOfCyclesLeft() == 2) {
                     Double value;
                     if (addSubStations[i].getOp() == OpCodes.ADD) {
                         value = addSubStations[i].getVj() + addSubStations[i].getVk();
@@ -418,10 +421,10 @@ public class CPU {
         }
     }
 
-    public void writeBack() {
+    public Result writeBack1() {
         Result result = executedInstructions.poll();
         if (result == null) {
-            return;
+            return null;
         }
         while (!executedInstructions.isEmpty()) {
             executedInstructions.poll();
@@ -440,6 +443,10 @@ public class CPU {
             default:
                 break;
         }
+        return result;
+    }
+
+    public void writeBack2(Result result) {
         checkAddSubStation(result);
         checkMulDivStation(result);
         checkStoreStation(result);
