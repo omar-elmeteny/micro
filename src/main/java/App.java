@@ -23,7 +23,7 @@ public class App {
 
 
     private static SimulatorSettings getDefaultSettings() {
-        return new SimulatorSettings(2, 2, 10, 40, 2, 1, 2, 3, 2, 3, 4);
+        return new SimulatorSettings(4, 2, 6, 40, 2, 1, 2, 3, 2, 3, 4);
     }
 
     private static SimulatorSettings readSimulatorSettings() {

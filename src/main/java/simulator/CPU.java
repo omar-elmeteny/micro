@@ -120,8 +120,8 @@ public class CPU {
     }
 
     private boolean isEmptyStoreStation() {
-        for(int i = 0;i < storeStations.length;i++) {
-            if(storeStations[i].isBusy()) {
+        for (int i = 0; i < storeStations.length; i++) {
+            if (storeStations[i].isBusy()) {
                 return false;
             }
         }
@@ -129,8 +129,8 @@ public class CPU {
     }
 
     private boolean isEmptyLoadStation() {
-        for(int i = 0;i < loadStations.length;i++) {
-            if(loadStations[i].isBusy()) {
+        for (int i = 0; i < loadStations.length; i++) {
+            if (loadStations[i].isBusy()) {
                 return false;
             }
         }
@@ -138,8 +138,8 @@ public class CPU {
     }
 
     private boolean isEmptyMulDivStation() {
-        for(int i = 0;i < mulDivStations.length;i++) {
-            if(mulDivStations[i].isBusy()) {
+        for (int i = 0; i < mulDivStations.length; i++) {
+            if (mulDivStations[i].isBusy()) {
                 return false;
             }
         }
@@ -147,8 +147,8 @@ public class CPU {
     }
 
     private boolean isEmptyAddSubStation() {
-        for(int i = 0;i < addSubStations.length;i++) {
-            if(addSubStations[i].isBusy()) {
+        for (int i = 0; i < addSubStations.length; i++) {
+            if (addSubStations[i].isBusy()) {
                 return false;
             }
         }
@@ -163,9 +163,9 @@ public class CPU {
     }
 
     public void runCycle() throws SimulatorRuntimeException {
-        issue();
-        execute();
         writeBack();
+        execute();
+        issue();
     }
 
     public boolean issue() {
@@ -312,11 +312,11 @@ public class CPU {
     }
 
     public boolean isReadyForExecution(String qj, String qk) {
-        return (qj != null && qk != null);
+        return (qj == null && qk == null);
     }
 
     public boolean isReadyForExecution(String q) {
-        return (q != null);
+        return (q == null);
     }
 
     public void execute() throws SimulatorRuntimeException {
