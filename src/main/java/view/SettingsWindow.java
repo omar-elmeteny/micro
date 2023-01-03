@@ -10,6 +10,7 @@ import simulator.SimulatorSettings;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
+import java.awt.event.*;
 
 public class SettingsWindow extends JDialog {
 
@@ -20,11 +21,12 @@ public class SettingsWindow extends JDialog {
 
         public SettingsWindow(SimulatorSettings settings) {
             super();
-            this.setTitle("Please set the settings for the simulation.");
+            this.setTitle("Please enter the settings for the simulation.");
             this.setSize(600, 400);
             this.setLocationRelativeTo(null);
             this.setVisible(true);
             this.setResizable(false);
+            this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
             JTabbedPane tabbedPane = new JTabbedPane();
             cyclesPane = new CyclesPane(settings);
@@ -65,9 +67,16 @@ public class SettingsWindow extends JDialog {
                     JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             });
+
             this.add(startButton, BorderLayout.SOUTH);
             this.setVisible(true);
 
+            this.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    System.exit(0);
+                }
+            });
         }
 
         public void addDialogDoneListener(DialogDoneListener listener) {

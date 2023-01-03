@@ -40,7 +40,6 @@ public class App {
                     br.close();
                 }
                 Desktop.getDesktop().browse(file.toURI());
-                System.exit(0);
             } catch (IOException e) {
 
             } catch (SimulatorSyntaxException e) {
