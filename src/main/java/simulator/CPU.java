@@ -88,7 +88,7 @@ public class CPU {
         this.clock = 1;
         instructionQueue = new LinkedList<>();
         executedInstructions = new PriorityQueue<>();
-        registerFile = new Register[32];
+        registerFile = new Register[settings.getNumberOfRegisters()];
         for (int i = 0; i < registerFile.length; i++) {
             registerFile[i] = new Register();
             registerFile[i].setValue(100 * Math.random() + 1);

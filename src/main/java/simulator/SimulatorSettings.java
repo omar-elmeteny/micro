@@ -68,9 +68,15 @@ public class SimulatorSettings {
         return storeStationSize;
     }
 
+    private final int numberOfRegisters;
+
+    public int getNumberOfRegisters() {
+        return numberOfRegisters;
+    }
+
     public SimulatorSettings(int addCycles, int subCycles, int mulCycles, int divCycles, int loadCycles,
             int storeCycles, int memSizeInKB, int addSubStationSize, int mulDivStationSize, int loadStationSize,
-            int storeStationSize) {
+            int storeStationSize, int numberOfRegisters) {
         super();
         this.addCycles = addCycles;
         this.subCycles = subCycles;
@@ -83,6 +89,7 @@ public class SimulatorSettings {
         this.mulDivStationSize = mulDivStationSize;
         this.loadStationSize = loadStationSize;
         this.storeStationSize = storeStationSize;
+        this.numberOfRegisters = numberOfRegisters;
     }
 
 }
