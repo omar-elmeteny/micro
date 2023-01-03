@@ -1,7 +1,11 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.util.Queue;
 import java.util.Scanner;
+import java.awt.Desktop;
 
 import exceptions.SimulatorRuntimeException;
 import exceptions.SimulatorSyntaxException;
@@ -9,6 +13,7 @@ import simulator.CodeParser;
 import simulator.Computer;
 import simulator.Instruction;
 import simulator.SimulatorSettings;
+import view.DisplayProgram;
 
 public class App {
 
@@ -19,8 +24,25 @@ public class App {
         Queue<Instruction> instructions = CodeParser.parseCode(args[0]);
         computer.getCpu().setInstructionQueue(instructions);
         computer.getCpu().runProgram();
-    }
 
+        File file = new File("output/printings.html");
+        try {
+            BufferedWriter br = new BufferedWriter(new FileWriter(file));
+            try {
+                br.write("<html><head><title>CPU Simulator</title><link href='printings.css' rel='stylesheet'/></head><body>");
+                for (String html : DisplayProgram.getCycleHtmls()) {
+                    br.write(html);
+                }
+                br.write("</body></html>");
+
+            } finally {
+                br.close();
+            }
+            Desktop.getDesktop().browse(file.toURI());
+        } catch (IOException e) {
+
+        }
+    }
 
     private static SimulatorSettings getDefaultSettings() {
         return new SimulatorSettings(4, 2, 6, 40, 2, 1, 2, 3, 2, 3, 4);

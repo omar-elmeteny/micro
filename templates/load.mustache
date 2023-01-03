@@ -1,0 +1,23 @@
+<table class="register-file">
+    <thead>
+        <tr>
+            <th colspan="4">Load Station</th>
+        </tr>
+        <tr>
+            <th>Time</th>
+            <th>Tag</th>
+            <th>Busy</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#loadStations}}
+        <tr>
+            <td>{{numberOfCyclesLeft}}</td>
+            <td>{{tag}}</td>
+            <td>{{busy}}</td>
+            <td>{{address}}</td>
+        </tr>
+        {{/loadStations}}
+    </tbody>
+</table>

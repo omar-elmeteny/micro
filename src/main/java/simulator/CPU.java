@@ -5,6 +5,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import exceptions.SimulatorRuntimeException;
+import view.DisplayProgram;
 
 public class CPU {
 
@@ -91,6 +92,8 @@ public class CPU {
         for (int i = 0; i < registerFile.length; i++) {
             registerFile[i] = new Register();
             registerFile[i].setValue(100 * Math.random() + 1);
+            registerFile[i].setIndex(i);
+
         }
         addSubStations = new ReservationStation[settings.getAddSubStationSize()];
         for (int i = 0; i < addSubStations.length; i++) {
@@ -158,6 +161,12 @@ public class CPU {
     public void runProgram() throws SimulatorRuntimeException {
         while (!isDone()) {
             runCycle();
+            DisplayProgram.addCycleHtml(this);
+
+            if (clock > 50) {
+                System.out.println("Infinite loop");
+                return;
+            }
             clock++;
         }
     }
@@ -466,7 +475,7 @@ public class CPU {
                 mulDivStations[i].setQj(null);
                 mulDivStations[i].setVj(result.getValue());
             }
-            if (result.getTag().equals(mulDivStations[i].getQj())) {
+            if (result.getTag().equals(mulDivStations[i].getQk())) {
                 mulDivStations[i].setQk(null);
                 mulDivStations[i].setVk(result.getValue());
             }

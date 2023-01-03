@@ -2,6 +2,15 @@ package simulator;
 
 public class Register {
     
+    private int index;
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
     private String qi;
     public String getQi() {
         return qi;
@@ -19,6 +28,10 @@ public class Register {
 
     public void setValue(Double value) {
         this.value = value;
+    }
+
+    public String getValueDisplay() {
+        return Double.toString(Math.round(value * 100) / 100.0);
     }
 
     public Register() {

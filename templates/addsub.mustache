@@ -1,0 +1,33 @@
+<table class="register-file">
+    <thead>
+        <tr>
+            <th colspan="9">Add/Sub Station</th>
+        </tr>
+        <tr>
+            <th>Time</th>
+            <th>Tag</th>
+            <th>Busy</th>
+            <th>Opcode</th>
+            <th>Vj</th>
+            <th>Vk</th>
+            <th>Qi</th>
+            <th>Qk</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#addSubStations}}
+        <tr>
+            <td>{{numberOfCyclesLeft}}</td>
+            <td>{{tag}}</td>
+            <td>{{busy}}</td>
+            <td>{{op}}</td>
+            <td>{{vj}}</td>
+            <td>{{vk}}</td>
+            <td>{{qj}}</td>
+            <td>{{qk}}</td>
+            <td>{{address}}</td>
+        </tr>
+        {{/addSubStations}}
+    </tbody>
+</table>
