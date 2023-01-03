@@ -1,0 +1,23 @@
+<table class="table table-striped">
+  <thead>
+      <tr>
+          <th colspan="3" class="text-center bg-info">Instruction Queue</th>
+      </tr>
+      <tr>
+          <th>OpCode</th>
+          <th>Operands/Address</th>
+          <th>FT</th>
+
+      </tr>
+  </thead>
+  <tbody>
+      {{#instructionQueue}}
+      <tr>
+          <td>{{name}}</td>
+          <td>{{operands}}</td>
+          <td>F{{ft}}</td>
+
+      </tr>
+      {{/instructionQueue}}
+  </tbody>
+</table>

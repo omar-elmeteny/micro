@@ -1,20 +1,17 @@
-<table class="register-file">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th colspan="3">Register file</th>
-        </tr>
-        <tr>
-            <th>F</th>
-            <th>Qi</th>
-            <th>Value</th>
+            <th class="bg-info text-center p-1">F</th>
+            <th class="bg-info text-center p-1">Qi</th>
+            <th class="bg-info text-center p-1">Value</th>
         </tr>
     </thead>
     <tbody>
         {{#registerFile}}
         <tr>
-            <td>F{{index}}</td>
-            <td>{{qi}}</td>
-            <td>{{valueDisplay}}</td>
+            <td class="p-1">F{{index}}</td>
+            <td class="p-1">{{qi}}</td>
+            <td class="p-1">{{valueDisplay}}</td>
         </tr>
         {{/registerFile}}
     </tbody>

@@ -2,7 +2,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Queue;
+
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
+
 import java.awt.Desktop;
 
 import exceptions.SimulatorRuntimeException;
@@ -21,6 +29,8 @@ public class App {
         window.addDialogDoneListener((settings) -> {
             try {
                 Computer computer = new Computer(settings);
+                DisplayProgram.getInstance().setProgramName(args[0]);
+                DisplayProgram.getInstance().setProgramListing(new String(Files.readAllBytes(Paths.get(args[0])), StandardCharsets.UTF_8));
                 Queue<Instruction> instructions = CodeParser.parseCode(args[0]);
                 computer.getCpu().setInstructionQueue(instructions);
                 computer.getCpu().runProgram();
@@ -29,12 +39,9 @@ public class App {
 
                 BufferedWriter br = new BufferedWriter(new FileWriter(file));
                 try {
-                    br.write(
-                            "<html><head><title>CPU Simulator</title><link href='printings.css' rel='stylesheet'/></head><body>");
-                    for (String html : DisplayProgram.getCycleHtmls()) {
-                        br.write(html);
-                    }
-                    br.write("</body></html>");
+                    MustacheFactory mf = new DefaultMustacheFactory();
+                    Mustache m = mf.compile("templates/output.mustache");
+                    m.execute(br, DisplayProgram.getInstance()).flush();
 
                 } finally {
                     br.close();

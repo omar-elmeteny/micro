@@ -1,9 +1,9 @@
 package simulator;
 
 public class ArithmeticInstruction  extends Instruction{
-    
+
     private final int fs;
-    
+
     public int getFs() {
         return fs;
     }
@@ -18,5 +18,10 @@ public class ArithmeticInstruction  extends Instruction{
         super(opcode, ft);
         this.fs = fs;
         this.fd = fd;
+    }
+
+    @Override
+    public String getOperands() {
+        return "F" + getFs() + ", F" + getFd();
     }
 }

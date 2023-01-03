@@ -11,8 +11,8 @@ import java.util.Queue;
 import exceptions.SimulatorSyntaxException;
 
 public class CodeParser {
-   
-    private static ArrayList<String> readCode(String pathname) throws IOException {
+
+    public static ArrayList<String> readCode(String pathname) throws IOException {
         File file = new File(pathname);
         BufferedReader br = new BufferedReader(new FileReader(file));
         ArrayList<String> code = new ArrayList<>();
@@ -103,10 +103,10 @@ public class CodeParser {
                 }
                 if(!checkRegisterSyntax(args[1])) {
                     throw new SimulatorSyntaxException("Incorrect register used");
-                }   
+                }
                 else if (!checkDestinationRegisterNumber(args[1].substring(1))){
                     throw new SimulatorSyntaxException("Incorrect register used");
-                } 
+                }
                 else {
                     try {
                         int address = Integer.parseInt(args[2]);
@@ -124,10 +124,10 @@ public class CodeParser {
                 }
                 if(!checkRegisterSyntax(args[1])) {
                     throw new SimulatorSyntaxException("Incorrect register used");
-                }   
+                }
                 else if (!checkSourceRegisterNumber(args[1].substring(1))){
                     throw new SimulatorSyntaxException("Incorrect register used");
-                } 
+                }
                 else {
                     try {
                         int address = Integer.parseInt(args[2]);
