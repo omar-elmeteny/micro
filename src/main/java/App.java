@@ -45,7 +45,7 @@ public class App {
     }
 
     private static SimulatorSettings getDefaultSettings() {
-        return new SimulatorSettings(4, 2, 6, 40, 2, 1, 2, 3, 2, 3, 4);
+        return new SimulatorSettings(1, 2, 1, 40, 2, 1, 2, 3, 2, 3, 4);
     }
 
     private static SimulatorSettings readSimulatorSettings() {

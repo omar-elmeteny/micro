@@ -343,11 +343,15 @@ public class CPU {
             String q = storeStations[i].getQ();
             if (isReadyForExecution(q) && storeStations[i].isBusy()) {
                 if (storeStations[i].getNumberOfCyclesLeft() == 1) {
+                    if(storeStations[i].getValue() == null) {
+                        computer.getMemory().storeMem(storeStations[i].getV(), storeStations[i].getAddress());
+                    }
                     int number = i + 1;
                     storeStations[i] = new StoreStation("S" + number);
                 } else if (storeStations[i].getNumberOfCyclesLeft() == 2) {
                     computer.getMemory().storeMem(storeStations[i].getV(), storeStations[i].getAddress());
                     storeStations[i].setNumberOfCyclesLeft(storeStations[i].getNumberOfCyclesLeft() - 1);
+                    storeStations[i].setValue(storeStations[i].getV());
                 } else {
                     storeStations[i].setNumberOfCyclesLeft(storeStations[i].getNumberOfCyclesLeft() - 1);
                 }
@@ -360,6 +364,9 @@ public class CPU {
             if (loadStations[i].isBusy()) {
                 if (loadStations[i].getNumberOfCyclesLeft() <= 1) {
                     Double value = loadStations[i].getValue();
+                    if(value == null) {
+                        value = computer.getMemory().loadMem(loadStations[i].getAddress());
+                    }
                     Result result = new Result(value, loadStations[i].getTag(), loadStations[i].getIssueCycle());
                     executedInstructions.add(result);
                 } else if (loadStations[i].getNumberOfCyclesLeft() == 2) {
@@ -378,6 +385,17 @@ public class CPU {
             if (isReadyForExecution(qj, qk) && mulDivStations[i].isBusy()) {
                 if (mulDivStations[i].getNumberOfCyclesLeft() <= 1) {
                     Double value = mulDivStations[i].getValue();
+                    if(value == null) {
+                        if (mulDivStations[i].getOp() == OpCodes.MUL) {
+                            value = mulDivStations[i].getVj() * mulDivStations[i].getVk();
+                        } else {
+                            try {
+                                value = mulDivStations[i].getVj() / mulDivStations[i].getVk();
+                            } catch (ArithmeticException e) {
+                                throw new SimulatorRuntimeException(e.getMessage());
+                            }
+                        }
+                    }
                     Result result = new Result(value, mulDivStations[i].getTag(), mulDivStations[i].getIssueCycle());
                     executedInstructions.add(result);
                 } else if (mulDivStations[i].getNumberOfCyclesLeft() == 2) {
@@ -405,6 +423,13 @@ public class CPU {
             if (isReadyForExecution(qj, qk) && addSubStations[i].isBusy()) {
                 if (addSubStations[i].getNumberOfCyclesLeft() <= 1) {
                     Double value = addSubStations[i].getValue();
+                    if(value == null) {
+                        if (addSubStations[i].getOp() == OpCodes.ADD) {
+                            value = addSubStations[i].getVj() + addSubStations[i].getVk();
+                        } else {
+                            value = addSubStations[i].getVj() - addSubStations[i].getVk();
+                        }
+                    }
                     Result result = new Result(value, addSubStations[i].getTag(), addSubStations[i].getIssueCycle());
                     executedInstructions.add(result);
                 } else if (addSubStations[i].getNumberOfCyclesLeft() == 2) {
